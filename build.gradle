@@ -13,7 +13,7 @@ buildscript {
 apply plugin: 'groovy'
 apply plugin: 'org.springframework.boot'
 
-group = 'com.example.amqp'
+group = 'org.kurron.exercise'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
@@ -22,20 +22,11 @@ repositories {
 }
 
 
-ext {
-	springCloudVersion = 'Edgware.RELEASE'
-}
 
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-actuator')
-	compile('org.springframework.boot:spring-boot-starter-web')
-	compile('org.springframework.boot:spring-boot-starter-amqp')
-	compile('org.codehaus.groovy:groovy')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
-}
-
-dependencyManagement {
-	imports {
-		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	testCompile('org.codehaus.groovy:groovy')
+	testCompile( "org.spockframework:spock-core" )  {
+		exclude module: 'groovy-all'
 	}
 }
+

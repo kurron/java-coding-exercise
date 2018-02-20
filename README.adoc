@@ -63,7 +63,8 @@ b=2
 ____
 
 
-It doesn't say what version of Java to use and, since I'm not up to speed on Java 9 yet, I'll stick with Java 8.  The Maven requirement should be fun, since I've been doing builds exclusively with Gradle.  I'll have to put on my "way back hat" and try to remember how to set up a project.  There is no mention of testing so I'll stick my my tried-and-true friend Spock.  I've come to really appreciate the power and simplicity it brings to automated testing, especially when combined with Spring. When I saw that we have to process things in parallel, I immediately thought of Java 8's parallel streams, so we'll give that a try.
+
+It doesn't say what version of Java to use and, since I'm not up to speed on Java 9 yet, I'll stick with Java 8.  The Maven requirement should be fun, since I've been doing builds exclusively with Gradle for years.  I'll have to put on my "way back hat" and try to remember how to set up a project.  There is no mention of testing so I'll stick my my tried-and-true friend Spock, since I've come to really appreciate the power and simplicity it brings to automated testing. When I saw that we have to process things in parallel, I immediately thought of Java 8's parallel streams, so we'll give that a try.  I'll resist the urge to dive right in and do what I normally do and write the tests firsts, filling in implementation as needed.
 
 == Prerequisites
 * http://zulu.org/[JDK 8] installed and working
@@ -84,7 +85,6 @@ Nothing to install.
 
 == License and Credits
 * This project is licensed under the http://www.apache.org/licenses/[Apache License Version 2.0, January 2004].
-* The guidebook structure was created by http://simonbrown.je/[Simon Brown] as part of his work on the https://c4model.com/[C4 Architectural Model].  His books can be https://leanpub.com/b/software-architecture[purchased from LeanPub].
-* Patrick Kua offered https://www.safaribooksonline.com/library/view/oreilly-software-architecture/9781491985274/video315451.html[his thoughts on a travel guide to a software system] which has been travel-guide/travel-guide.md[captured in this template].
+been travel-guide/travel-guide.md[captured in this template].
 
 == List of Changes
