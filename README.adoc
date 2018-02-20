@@ -1,4 +1,19 @@
-# Overview
+:toc:
+:toc-placement!:
+
+:note-caption: :information_source:
+:tip-caption: :bulb:
+:important-caption: :heavy_exclamation_mark:
+:warning-caption: :warning:
+:caution-caption: :fire:
+
+= Ansible Study Group Labs
+Ron Kurr <rkurr@jvmguy.com>
+
+
+toc::[]
+
+== Overview
 This project is a sample that helps to showcase how you can use [Spring AMQP](https://projects.spring.io/spring-amqp/) to support the pattern matching as outlined in [The Tao of Microservices](https://www.safaribooksonline.com/library/view/the-tao-of/9781617293146/).  The basic idea is that message passing is the primary communication mechanism within the system and that routing of messages to the appropriate services is done by pattern matching.  Luckily, the AMQP specification allows us to do just that.
 
 Routing of messages is done via AMQP headers, not to be confused with AMP Properties which are completely different.  In order for routing to work, your system needs to settle on a handful of key-value pairs -- headers, which AMQP can use to forward the message onto the appropriate queues.  The headers are arbitrary but it seems practical to break things down in this manner:
@@ -17,21 +32,21 @@ One interesting scenario is to have messages flowing to a legacy service also fl
 
 If we adjust our message producers to add an additional boolean header, `canary`, we can flow a percentage of messages to a queue when the value is `true`.  Unfortunately, the producer has to be aware that a canary release is in play and toggle a percentage of the generated messages to have a `true` value.  This implies that a common message producer library is deployed throughout the system, allowing Operations this level of control.  It is possible that a service mesh, such as [Istio](https://istio.io/), or a proxy service might be able handle setting of the canary property out of band, freeing the producer have having to know about deployment-time decisions.
 
-# Guidebook
+== Guidebook
 Details about this project are contained in the [guidebook](guidebook/guidebook.md) and should be considered mandatory reading prior to contributing to this project.
 
-# Prerequisites
+== Prerequisites
 * [JDK 8](http://zulu.org/) installed and working
 * a RabbitMQ instance up and running (the default configuration expects it to be at localhost)
 
 # Building
 `./gradlew` will pull down any dependencies, compile the source and package everything up.
 
-# Installation
+== Installation
 Nothing to install.
 
-# Tips and Tricks
-## Starting The Server
+== Tips and Tricks
+=== Starting The Server
 `./gradlew clean bootRun` will start the server on port `8080` and begin producing and cosuming messages. You should see something similar to this:
 
 ```
@@ -48,14 +63,13 @@ Nothing to install.
 2018-01-04 16:43:11.373  INFO 21112 --- [cTaskExecutor-1] com.example.amqp.Application             : From all-events 407234c9-1fba-44b3-84f9-599739ed1431 [message-type: event]
 ```
 
-# Troubleshooting
+== Troubleshooting
 
-# Contributing
+== Contributing
 
-# License and Credits
-* This project is licensed under the [Apache License Version 2.0, January 2004](http://www.apache.org/licenses/).
-* The guidebook structure was created by [Simon Brown](http://simonbrown.je/) as part of his work on the [C4 Architectural Model](https://c4model.com/).  His books can be [purchased from LeanPub](https://leanpub.com/b/software-architecture).
-* Patrick Kua offered [his thoughts on a travel guide to a software system](https://www.safaribooksonline.com/library/view/oreilly-software-architecture/9781491985274/video315451.html) which has been [captured in this template](travel-guide/travel-guide.md).
-* [The Tao of Microservices](https://www.safaribooksonline.com/library/view/the-tao-of/9781617293146/) by Richard Rodger.
+== License and Credits
+. This project is licensed under the http://www.apache.org/licenses/[Apache License Version 2.0, January 2004].
+. The guidebook structure was created by http://simonbrown.je/[Simon Brown] as part of his work on the https://c4model.com/[C4 Architectural Model].  His books can be https://leanpub.com/b/software-architecture[purchased from LeanPub].
+. Patrick Kua offered https://www.safaribooksonline.com/library/view/oreilly-software-architecture/9781491985274/video315451.html[his thoughts on a travel guide to a software system] which has been travel-guide/travel-guide.md[captured in this template].
 
-# List of Changes
+== List of Changes
