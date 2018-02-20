@@ -19,7 +19,7 @@ This project is a solution to a sample Java problem I found on the internet.  Ha
 .Problem Statement
 [quote, unknown author, unknown source]
 ____
-This coding test uses two files that are publicly accessible over the internet. Each line in both files contains a property value pair separated by an = character. Properties are a string, values are an integer.  The objective of the task is to print each property and the summation of each properties values. The output should be in descending order of value summation.  The files should be processed in parallel. The project should be written in Java using maven. Please share you work with a Github account if possible, or you can email me a zip file of the project.
+This coding test uses two files that are publicly accessible over the internet. Each line in both files contains a property value pair separated by an = character. Properties are a string, values are an integer.  The objective of the task is to print each property and the summation of each properties values. The output should be in descending order of value summation.  The files should be processed in parallel. The project should be written in Java using maven.
 
 
 
@@ -63,8 +63,12 @@ b=2
 ____
 
 
+It doesn't say what version of Java to use and, since I'm not up to speed on Java 9 yet, I'll stick with Java 8.  The Maven requirement should be fun, since I've been doing builds exclusively with Gradle.  I'll have to put on my "way back hat" and try to remember how to set up a project.  There is no mention of testing so I'll stick my my tried-and-true friend Spock.  I've come to really appreciate the power and simplicity it brings to automated testing, especially when combined with Spring. When I saw that we have to process things in parallel, I immediately thought of Java 8's parallel streams, so we'll give that a try.
+
 == Prerequisites
 * http://zulu.org/[JDK 8] installed and working
+* https://maven.apache.org/[Apache Maven] installed and working
+* I developed and tested on an https://app.vagrantup.com/kurron/boxes/xenial-xubuntu[Ubuntu-based Vagrant development box] I maintain, which already has the prerequisites installed
 
 # Building
 `./gradlew` will pull down any dependencies, compile the source and package everything up.
@@ -73,30 +77,14 @@ ____
 Nothing to install.
 
 == Tips and Tricks
-=== Starting The Server
-`./gradlew clean bootRun` will start the server on port `8080` and begin producing and cosuming messages. You should see something similar to this:
-
-```
-2018-01-04 16:43:07.396  INFO 21112 --- [cTaskExecutor-1] com.example.amqp.Application             : From user-commands 6a152daa-ef70-4630-9c92-21332115d005 [subject: user, message-type: command]
-2018-01-04 16:43:07.396  INFO 21112 --- [cTaskExecutor-1] com.example.amqp.Application             : From all-commands 6a152daa-ef70-4630-9c92-21332115d005 [subject: user, message-type: command]
-2018-01-04 16:43:07.399  INFO 21112 --- [cTaskExecutor-1] com.example.amqp.Application             : From user-commands-spy 6a152daa-ef70-4630-9c92-21332115d005 [subject: user, message-type: command]
-2018-01-04 16:43:07.400  INFO 21112 --- [cTaskExecutor-1] com.example.amqp.Application             : From all-events e831e103-cc44-4373-9727-b134c5865f24 [message-type: event]
-2018-01-04 16:43:07.400  INFO 21112 --- [cTaskExecutor-1] com.example.amqp.Application             : From all-commands 4d76a40b-6d8e-4671-adbe-cef04ac265fb [message-type: command]
-2018-01-04 16:43:09.371  INFO 21112 --- [cTaskExecutor-1] com.example.amqp.Application             : From all-events 8397efe7-99c1-4a8d-adc9-89dfecdfa682 [message-type: event]
-2018-01-04 16:43:10.372  INFO 21112 --- [cTaskExecutor-1] com.example.amqp.Application             : From all-commands ed13af8f-b778-4b6e-8c19-d7c83462d3e2 [message-type: command]
-2018-01-04 16:43:11.371  INFO 21112 --- [cTaskExecutor-1] com.example.amqp.Application             : From all-commands 8ec56c5e-04f9-442a-aa5d-81ae535cb6f1 [subject: user, message-type: command]
-2018-01-04 16:43:11.371  INFO 21112 --- [cTaskExecutor-1] com.example.amqp.Application             : From user-commands-spy 8ec56c5e-04f9-442a-aa5d-81ae535cb6f1 [subject: user, message-type: command]
-2018-01-04 16:43:11.372  INFO 21112 --- [cTaskExecutor-1] com.example.amqp.Application             : From user-commands 8ec56c5e-04f9-442a-aa5d-81ae535cb6f1 [subject: user, message-type: command]
-2018-01-04 16:43:11.373  INFO 21112 --- [cTaskExecutor-1] com.example.amqp.Application             : From all-events 407234c9-1fba-44b3-84f9-599739ed1431 [message-type: event]
-```
 
 == Troubleshooting
 
 == Contributing
 
 == License and Credits
-. This project is licensed under the http://www.apache.org/licenses/[Apache License Version 2.0, January 2004].
-. The guidebook structure was created by http://simonbrown.je/[Simon Brown] as part of his work on the https://c4model.com/[C4 Architectural Model].  His books can be https://leanpub.com/b/software-architecture[purchased from LeanPub].
-. Patrick Kua offered https://www.safaribooksonline.com/library/view/oreilly-software-architecture/9781491985274/video315451.html[his thoughts on a travel guide to a software system] which has been travel-guide/travel-guide.md[captured in this template].
+* This project is licensed under the http://www.apache.org/licenses/[Apache License Version 2.0, January 2004].
+* The guidebook structure was created by http://simonbrown.je/[Simon Brown] as part of his work on the https://c4model.com/[C4 Architectural Model].  His books can be https://leanpub.com/b/software-architecture[purchased from LeanPub].
+* Patrick Kua offered https://www.safaribooksonline.com/library/view/oreilly-software-architecture/9781491985274/video315451.html[his thoughts on a travel guide to a software system] which has been travel-guide/travel-guide.md[captured in this template].
 
 == List of Changes
