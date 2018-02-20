@@ -16,8 +16,8 @@ toc::[]
 == Overview
 This project is a solution to a sample Java problem I found on the internet.  Having spent the last couple of years implementing JVM solutions using Groovy, I figured this puzzle would be a nice change of pace.
 
-.Optional The Problem Statement
-[quote, cite unknown, cite unknown]
+.Problem Statement
+[quote, unknown author, unknown source]
 ____
 This coding test uses two files that are publicly accessible over the internet. Each line in both files contains a property value pair separated by an = character. Properties are a string, values are an integer.  The objective of the task is to print each property and the summation of each properties values. The output should be in descending order of value summation.  The files should be processed in parallel. The project should be written in Java using maven. Please share you work with a Github account if possible, or you can email me a zip file of the project.
 
@@ -63,12 +63,8 @@ b=2
 ____
 
 
-== Guidebook
-Details about this project are contained in the [guidebook](guidebook/guidebook.md) and should be considered mandatory reading prior to contributing to this project.
-
 == Prerequisites
-* [JDK 8](http://zulu.org/) installed and working
-* a RabbitMQ instance up and running (the default configuration expects it to be at localhost)
+* http://zulu.org/[JDK 8] installed and working
 
 # Building
 `./gradlew` will pull down any dependencies, compile the source and package everything up.
