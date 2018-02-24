@@ -14,9 +14,9 @@ Ron Kurr <rkurr@jvmguy.com>
 toc::[]
 
 == Overview
-This project is a solution to a sample Java problem I found on the internet.  Having spent the last couple of years implementing JVM solutions using Groovy, I figured this puzzle would be a nice change of pace.
+This project is a solution to a sample Java problem I found on the internet.  Having spent the last couple of years implementing JVM solutions using http://groovy-lang.org/[Groovy], I figured this puzzle would be a nice change of pace.
 
-.Problem Statement
+=== Problem Statement
 [quote, unknown author, unknown source]
 ____
 This coding test uses two files that are publicly accessible over the internet. Each line in both files contains a property value pair separated by an = character. Properties are a string, values are an integer.  The objective of the task is to print each property and the summation of each properties values. The output should be in descending order of value summation.  The files should be processed in parallel. The project should be written in Java using maven.
@@ -63,17 +63,18 @@ b=2
 ____
 
 
-
-It doesn't say what version of Java to use and, since I'm not up to speed on Java 9 yet, I'll stick with Java 8.  The Maven requirement should be fun, since I've been doing builds exclusively with Gradle for years.  I'll have to put on my "way back hat" and try to remember how to set up a project.  There is no mention of testing so I'll stick my my tried-and-true friend http://spockframework.org/[Spock], as I've come to really appreciate the power and simplicity it brings to automated testing. When I saw that we have to process things in parallel, I immediately thought of Java 8's parallel streams. My second and third thoughts were https://github.com/ReactiveX/RxJava[RxJava] and https://projectreactor.io/[Spring Reactor]. I don't want to drag in libraries unless needed so we'll give Streams a try.  I'll resist the urge to dive right in and do what I normally do and write the tests firsts, filling in implementation as needed.
+=== Analysis
+It doesn't say what version of Java to use and, since I'm not up to speed on Java 9 yet, I'll stick with Java 8.  The Maven requirement should be fun, since I've been doing builds exclusively with https://gradle.org/[Gradle] for years.  I'll have to put on my "way back hat" and try to remember how to set up a project.  There is no mention of testing so I'll stick with my tried-and-true friend http://spockframework.org/[Spock], as I've come to really appreciate the power and simplicity it brings to automated testing. When I saw that we have to process things in parallel, I immediately thought of Java 8's parallel streams. My second and third thoughts were https://github.com/ReactiveX/RxJava[RxJava] and https://projectreactor.io/[Spring Reactor]. I don't want to drag in libraries unless needed so we'll give Streams a try.  I'll resist the urge to dive right in and do what I normally do and write the tests firsts, filling in implementation as needed.
 
 The Stream API is quite complex so I'm very thankful for my https://www.safaribooksonline.com/[Safari] subscription, where I was able to dig up a few resources to help me.  As it turns out, the `collect` function can do exactly what we need: merge maps and account for overlapping entries.  This gives me hope that I won't be wasting my time going down the Streams path.
 
-The Streams API is quite powerful but it is also has a bit of a learning curve if you haven't been exposed to functional programming.  Luckily, Groovy contains many functional elements so it was mostly just a matter of translating the syntax and API calls.  One things I found useful was to leverage method references, keeping the code easier to understand.  I normally try and write code that reads like a "recipe" but many of the Stream examples use Lambda expressions which I find hard to read.  I concede that moving some of the logic out of the stream method forces the reviewer to switch context, but I find smaller bits of code easier to understand and test, so I'll make that trade-off.
+The Streams API is quite powerful but it is also has a bit of a learning curve if you haven't been exposed to functional programming.  Luckily, Groovy contains many functional elements so it was mostly just a matter of translating the syntax and API calls.  One thing I found useful was to leverage method references, keeping the code easier to understand.  I normally try and write code that reads like a "recipe" but many of the Stream examples use Lambda expressions which I find hard to read.  I concede that moving some of the logic out of the stream method forces the reviewer to switch context, but I find smaller bits of code easier to understand and test, so I'll make that trade-off.
 
-I initially got things working by using sequential processing and then added the `parallel()` call afterwards, ensuring the test was still green.  Luckily, the problem lends itself to concurrent processing because of the commutative nature of the problem.  The sequence of processing isn't important, all we need is for the math to work out in the end.  In the literature, you'll see samples similar to this problem where they are counting hits on a website or interactions by user.
+I initially got things working by using sequential processing and then added the `parallel()` call afterwards, ensuring the test was still green.  Luckily, the problem lends itself to concurrent processing because of its commutative nature.  The sequence of processing isn't important, all we need is for the math to work out in the end.  In the literature, you'll see samples similar to this problem where they are counting hits on a website or interactions by user.
 
-If you read the API documentation, you'll see some notes about whether or not certain calls make sense when running in concurrent mode.  Sometimes they point you to an alternative or question whether concurrency is needed in the context.  The take away is that you won't know for certain if a combination of stream calls is performant without some testing.
+TIP: If you read the Stream API documentation, you'll see some notes about whether or not certain calls make sense when running in concurrent mode.  Sometimes they point you to an alternative or question whether concurrency is needed in the context.  The take away is that you won't know for certain if a combination of stream calls is performant without some testing.
 
+=== Solution
 The solution boiled down to this sequence:
 
 . transform the individual data files into a collection of strings (the contents of the files)
@@ -82,7 +83,7 @@ The solution boiled down to this sequence:
 . during the transformation of pairs to map entries, we apply a `Collector` that handles key collisions by summing the values together
 . reduce the stream of entries into a single map, holding the final solution
 
-One thing you have to pay attention to when working with streams is that you sometimes get streams of streams, requiring the use of `flatMap` to correct.  Debugging streams can be rather painful but can be done if you go step by step.  Oftentimes, I would apply the terminal `forEach` function to dump the contents of the stream.  I found that IDEA's debugger wasn't as helpful as I'm used to.  Being a Stream newbie, it could just be the debugging techniques I was using, where I wasn't making use of `evaluate expression`.  I was a bit surprised to find that Streams doesn't alter the way errors are handled like RxJava does.  I'll admit, it is a different paradigm but having a place to insert error handling as you compose steps in the pipeline would be useful.  The reader would see both the normal and exceptional processing paths together.
+One thing you have to pay attention to when working with streams is that you sometimes get streams of streams, requiring the use of `flatMap` to correct.  Debugging streams is painful but can be done if you go step by step.  Oftentimes, I would apply the terminal `forEach` function to dump the contents of the stream.  I found that IDEA's debugger wasn't as helpful as I'm used to.  Being a Stream newbie, it could just be the debugging techniques I was using, where I wasn't making use of `evaluate expression`.  I was a bit surprised to find that Streams doesn't alter the way errors are handled like RxJava does.  I'll admit, it is a different paradigm but having a place to insert error handling as you compose steps in the pipeline would be useful.  The reader would see both the normal and exceptional processing paths together.
 
 I had a grand plan of testing numerous scenarios, including failure ones but ran out of steam.  The new and shiny problem lost is luster once I discovered the secret sauce.
 
@@ -105,7 +106,7 @@ Nothing to install.
 
 == License and Credits
 * This project is licensed under the http://www.apache.org/licenses/[Apache License Version 2.0, January 2004].
-been travel-guide/travel-guide.md[captured in this template].
-* https://coderwall.com/p/oflatw/merging-multiple-maps-using-java-8-streams
+* https://www.safaribooksonline.com/library/view/java-8-in/9781617291999/[Java 8 in Action: Lambdas, streams, and functional-style programming]
+* https://coderwall.com/p/oflatw/merging-multiple-maps-using-java-8-streams[Merging Multiple Maps Using Java 8 Streams]
 
 == List of Changes
