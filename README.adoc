@@ -84,7 +84,6 @@ TIP: Maven prints to stdout so you can see the results of the test in the consol
 
 You should see something similar to this:
 
-.Maven Outputs
 ----
 [INFO] Scanning for projects...
 [INFO]
