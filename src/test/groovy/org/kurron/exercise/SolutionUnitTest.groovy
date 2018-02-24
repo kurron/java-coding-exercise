@@ -9,7 +9,7 @@ import spock.lang.Unroll
 class SolutionUnitTest extends Specification {
 
     @Unroll
-    void 'foo'(  List<URL> data, Map<String,Integer> expected ) {
+    void 'Testing #description case'(  String description, List<URL> data, Map<String,Integer> expected ) {
         given: 'subject under test'
         def sut = new StreamSolution()
 
@@ -20,7 +20,7 @@ class SolutionUnitTest extends Specification {
         results == expected
 
         where:
-        data                          || expected
-        [new URL( 'file:///' )] || [:]
+        description  |data                           || expected
+        'invalid url'|[new URL( 'file:///' )]  || [:]
     }
 }
