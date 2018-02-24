@@ -75,8 +75,13 @@ I had a grand plan of testing numerous scenarios, including failure ones but ran
 * https://maven.apache.org/[Apache Maven] installed and working
 * I developed and tested on an https://app.vagrantup.com/kurron/boxes/xenial-xubuntu[Ubuntu-based Vagrant development box] I maintain, which already has the prerequisites installed
 
-# Building
-`./gradlew` will pull down any dependencies, compile the source and package everything up.
+# Building (Maven)
+`mvn test` will pull down any dependencies, compile the source and run the unit-tests. The test results are in `target/surefire-reports/`.
+
+TIP: Maven prints to stdout so you can see the results of the test on the console.
+
+# Building (Gradle)
+`./gradlew test` will pull down any dependencies, compile the source and run the unit-tests. The test results are in `build/reports/tests/test/index.html`
 
 == Installation
 Nothing to install.
@@ -89,6 +94,7 @@ Nothing to install.
 
 == License and Credits
 * This project is licensed under the http://www.apache.org/licenses/[Apache License Version 2.0, January 2004].
+* https://www.petrikainulainen.net/programming/testing/writing-unit-tests-with-spock-framework-creating-a-maven-project/[Writing Unit Tests With Spock Framework: Creating a Maven Project]
 * https://www.safaribooksonline.com/library/view/java-8-in/9781617291999/[Java 8 in Action: Lambdas, streams, and functional-style programming]
 * https://coderwall.com/p/oflatw/merging-multiple-maps-using-java-8-streams[Merging Multiple Maps Using Java 8 Streams]
 

@@ -12,8 +12,7 @@ class StreamSolutionUnitTest extends Specification {
         def sut = new StreamSolution()
 
         and: 'the two data files'
-        def data = ['file1.txt',
-                    'file2.txt']
+        def data = ['file1.txt', 'file2.txt']
 
         when: 'solve is called'
         def results = sut.solve( data )
@@ -22,7 +21,7 @@ class StreamSolutionUnitTest extends Specification {
         def expected = ['A': 10, 'B': 2, 'C': 2, 'CD': 8, 'Z': 2]
         results == expected
 
-        and: 'dump the map just to visually verify the results'
-        println results
+        and: 'we can dump the map just to visually verify the results from the build'
+        println "Test results are ${results}"
     }
 }
