@@ -9,13 +9,14 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * Implementation of the Solution interface that uses parallel streams to do its job.
+ * Implementation of the Solution interface that uses parallel streams to accomplish the task.
  */
 public class StreamSolution implements Solution {
 
     @Override
-    public Map<String, Integer> solve( List<String> dataFiles ) {
+    public Map<String, Integer> solve( final List<String> dataFiles ) {
         return dataFiles.stream()
+                        .parallel()
                         .map( StreamSolution::fileNameToFileContents )
                         .flatMap( StreamSolution::stringToMapEntryStream)
                         .collect( Collectors.toMap( Map.Entry::getKey, Map.Entry::getValue, Integer::sum ) );
@@ -26,8 +27,8 @@ public class StreamSolution implements Solution {
      * @param filename name of the file to read.
      * @return collection of the file's contents.
      */
-    private static List<String> fileNameToFileContents(String filename) {
-        try(Stream<String> lines = Files.lines( Paths.get( filename ), StandardCharsets.UTF_8 ) ) {
+    private static List<String> fileNameToFileContents( final String filename ) {
+        try( Stream<String> lines = Files.lines( Paths.get( filename ), StandardCharsets.UTF_8 ) ) {
             return lines.collect( Collectors.toList() );
         }
         catch ( IOException e ) {
@@ -43,8 +44,9 @@ public class StreamSolution implements Solution {
      * @param pairs collection of key-number pairs to transform.
      * @return stream of map entries.
      */
-    private static Stream<Map.Entry<String,Integer>> stringToMapEntryStream(List<String> pairs) {
+    private static Stream<Map.Entry<String,Integer>> stringToMapEntryStream( final List<String> pairs ) {
        return pairs.stream()
+                   .parallel()
                    .map( StreamSolution::mapLineToPair  )
                    .collect( Collectors.toMap( Pair::getKey, Pair::getValue, Integer::sum ) )
                    .entrySet()
@@ -56,7 +58,7 @@ public class StreamSolution implements Solution {
      * @param line text to convert.
      * @return newly created object.
      */
-    private static Pair mapLineToPair(final String line) {
+    private static Pair mapLineToPair( final String line ) {
         final String[] parsed = line.split( "=" );
         return new Pair( parsed[0], Integer.parseInt( parsed[1] ) );
     }
