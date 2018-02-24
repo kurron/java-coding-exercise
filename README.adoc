@@ -75,12 +75,14 @@ I had a grand plan of testing numerous scenarios, including failure ones but ran
 * https://maven.apache.org/[Apache Maven] installed and working
 * I developed and tested on an https://app.vagrantup.com/kurron/boxes/xenial-xubuntu[Ubuntu-based Vagrant development box] I maintain, which already has the prerequisites installed
 
-# Building (Maven)
+== Building
+
+=== Maven
 `mvn test` will pull down any dependencies, compile the source and run the unit-tests. The test results are in `target/surefire-reports/`.
 
 TIP: Maven prints to stdout so you can see the results of the test on the console.
 
-# Building (Gradle)
+=== Gradle
 `./gradlew test` will pull down any dependencies, compile the source and run the unit-tests. The test results are in `build/reports/tests/test/index.html`
 
 == Installation
