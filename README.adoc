@@ -80,7 +80,7 @@ I had a grand plan of testing numerous scenarios, including failure ones but ran
 === Maven
 `mvn test` will pull down any dependencies, compile the source and run the unit-tests. The test results are in `target/surefire-reports/`.
 
-TIP: Maven prints to stdout so you can see the results of the test on the console.
+TIP: Maven prints to stdout so you can see the results of the test in the console.
 
 === Gradle
 `./gradlew test` will pull down any dependencies, compile the source and run the unit-tests. The test results are in `build/reports/tests/test/index.html`
