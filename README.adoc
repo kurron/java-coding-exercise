@@ -21,44 +21,24 @@ This project is a solution to a sample Java problem I found on the internet.  Ha
 ____
 This coding test uses two files that are publicly accessible over the internet. Each line in both files contains a property value pair separated by an = character. Properties are a string, values are an integer.  The objective of the task is to print each property and the summation of each properties values. The output should be in descending order of value summation.  The files should be processed in parallel. The project should be written in Java using maven.
 
-
-
 These are the test file URLs:
 
 https://s3.amazonaws.com/111test-bucket/file1.txt
-
 https://s3.amazonaws.com/111test-bucket/file2.txt
-
-
-
-
 
 For example:
 
-
-
 File A:
-
 a=3
-
 c=5
-
-
 
 File B:
-
 a=1
-
 b=2
 
-
-
 Output:
-
 c=5
-
 a=4
-
 b=2
 ____
 
@@ -83,7 +63,9 @@ The solution boiled down to this sequence:
 . during the transformation of pairs to map entries, we apply a `Collector` that handles key collisions by summing the values together
 . reduce the stream of entries into a single map, holding the final solution
 
-One thing you have to pay attention to when working with streams is that you sometimes get streams of streams, requiring the use of `flatMap` to correct.  Debugging streams is painful but can be done if you go step by step.  Oftentimes, I would apply the terminal `forEach` function to dump the contents of the stream.  I found that IDEA's debugger wasn't as helpful as I'm used to.  Being a Stream newbie, it could just be the debugging techniques I was using, where I wasn't making use of `evaluate expression`.  I was a bit surprised to find that Streams doesn't alter the way errors are handled like RxJava does.  I'll admit, it is a different paradigm but having a place to insert error handling as you compose steps in the pipeline would be useful.  The reader would see both the normal and exceptional processing paths together.
+TIP: One thing you have to pay attention to when working with streams is that you sometimes get streams of streams, requiring the use of `flatMap` to correct.
+
+Debugging streams is painful but can be done if you go step by step.  Oftentimes, I would apply the terminal `forEach` function to dump the contents of the stream.  I found that IDEA's debugger wasn't as helpful as I'm used to.  Being a Stream newbie, it could just be the debugging techniques I was using, where I wasn't making use of `evaluate expression`.  I was a bit surprised to find that Streams doesn't alter the way errors are handled like RxJava does.  I'll admit, it is a different paradigm but having a place to insert error handling as you compose steps in the pipeline would be useful.  The reader would see both the normal and exceptional processing paths together.
 
 I had a grand plan of testing numerous scenarios, including failure ones but ran out of steam.  The new and shiny problem lost is luster once I discovered the secret sauce.
 
