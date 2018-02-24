@@ -85,7 +85,7 @@ TIP: Maven prints to stdout so you can see the results of the test in the consol
 You should see something similar to this:
 
 .Maven Outputs
-==========================
+----
 [INFO] Scanning for projects...
 [INFO]
 [INFO] ------------------------------------------------------------------------
@@ -134,7 +134,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 [INFO] Finished at: 2018-02-24T13:55:48-05:00
 [INFO] Final Memory: 18M/207M
 [INFO] ------------------------------------------------------------------------
-==========================
+----
 
 === Gradle
 `./gradlew test` will pull down any dependencies, compile the source and run the unit-tests. The test results are in `build/reports/tests/test/index.html`
