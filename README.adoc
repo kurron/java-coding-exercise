@@ -78,7 +78,9 @@ I had a grand plan of testing numerous scenarios, including failure ones but ran
 == Building
 
 === Maven
-`mvn test` will pull down any dependencies, compile the source and run the unit-tests. The test results are in `target/surefire-reports/`.
+`mvn test` will pull down any dependencies, compile the source and run the unit-tests.
+
+TIP: The test results are in `target/surefire-reports/`.
 
 TIP: Maven prints to stdout so you can see the results of the test in the console.
 
@@ -136,7 +138,19 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 ----
 
 === Gradle
-`./gradlew test` will pull down any dependencies, compile the source and run the unit-tests. The test results are in `build/reports/tests/test/index.html`
+`./gradlew test` will pull down any dependencies, compile the source and run the unit-tests.
+
+TIP: The test results are in `build/reports/tests/test/index.html`
+
+You should see something similar to this:
+----
+BUILD SUCCESSFUL in 0s
+4 actionable tasks: 4 up-to-date
+vagrant@kal-el:~/GitHub/java-coding-exercise$ ./gradlew clean test
+
+BUILD SUCCESSFUL in 2s
+5 actionable tasks: 5 executed
+----
 
 == Installation
 Nothing to install.
