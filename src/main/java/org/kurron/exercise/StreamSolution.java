@@ -1,6 +1,8 @@
 package org.kurron.exercise;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -28,10 +30,12 @@ public class StreamSolution implements Solution {
      * @return collection of the file's contents.
      */
     private static List<String> fileNameToFileContents( final String filename ) {
-        try( Stream<String> lines = Files.lines( Paths.get( filename ), StandardCharsets.UTF_8 ) ) {
+        URL location = Optional.ofNullable( StreamSolution.class.getClassLoader().getResource( filename ) )
+                                .orElseThrow( IllegalStateException::new );
+        try( Stream<String> lines = Files.lines( Paths.get( location.toURI() ), StandardCharsets.UTF_8 ) ) {
             return lines.collect( Collectors.toList() );
         }
-        catch ( IOException e ) {
+        catch ( IOException | URISyntaxException e ) {
             //TODO: at least log something
             throw new RuntimeException( e );
         }

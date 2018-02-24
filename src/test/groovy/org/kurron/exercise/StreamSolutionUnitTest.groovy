@@ -12,8 +12,8 @@ class StreamSolutionUnitTest extends Specification {
         def sut = new StreamSolution()
 
         and: 'the two data files'
-        def data = ['/home/vagrant/GitHub/java-coding-exercise/src/test/resources/file1.txt',
-                    '/home/vagrant/GitHub/java-coding-exercise/src/test/resources/file2.txt']
+        def data = ['file1.txt',
+                    'file2.txt']
 
         when: 'solve is called'
         def results = sut.solve( data )
