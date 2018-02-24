@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * Implementation of the Solution interface that uses parallel streams to accomplish the task.
+ * Implementation of the {@link Solution} interface that uses parallel streams to accomplish the task.
  */
 public class StreamSolution implements Solution {
 
@@ -30,8 +30,8 @@ public class StreamSolution implements Solution {
      * @return collection of the file's contents.
      */
     private static List<String> fileNameToFileContents( final String filename ) {
-        URL location = Optional.ofNullable( StreamSolution.class.getClassLoader().getResource( filename ) )
-                                .orElseThrow( IllegalStateException::new );
+        final URL location = Optional.ofNullable( StreamSolution.class.getClassLoader().getResource( filename ) )
+                                     .orElseThrow( IllegalStateException::new );
         try( Stream<String> lines = Files.lines( Paths.get( location.toURI() ), StandardCharsets.UTF_8 ) ) {
             return lines.collect( Collectors.toList() );
         }
