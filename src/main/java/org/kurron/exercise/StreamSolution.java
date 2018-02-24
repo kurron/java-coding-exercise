@@ -18,7 +18,7 @@ public class StreamSolution implements Solution {
         return dataFiles.stream()
                         .parallel()
                         .map( StreamSolution::fileNameToFileContents )
-                        .flatMap( StreamSolution::stringToMapEntryStream)
+                        .flatMap( StreamSolution::stringToMapEntryStream )
                         .collect( Collectors.toMap( Map.Entry::getKey, Map.Entry::getValue, Integer::sum ) );
     }
 
