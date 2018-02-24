@@ -15,29 +15,18 @@ public class StreamSolution implements Solution {
 
     @Override
     public Map<String, Integer> solve( List<String> dataFiles ) {
-
-        Map<String, Integer> bob = dataFiles.stream().map( StreamSolution::fileNameToFileContents )
-                          .flatMap( StreamSolution::stringPairToMap )
-                          .collect( Collectors.toMap( Map.Entry::getKey, Map.Entry::getValue, Integer::sum ) );
-        Map<String,Integer> alpha = new HashMap<>( 8 );
-        alpha.put( "A", 1 );
-        alpha.put( "C", 2 );
-        alpha.put( "CD", 4 );
-        alpha.put( "A", 3 );
-        alpha.put( "Z", 1 );
-        Map<String,Integer> bravo = new HashMap<>( 8 );
-        bravo.put( "B", 2 );
-        bravo.put( "A", 3 );
-        bravo.put( "CD", 4 );
-        bravo.put( "A", 3 );
-        bravo.put( "Z", 1 );
-        Map<String,Integer> totals = Stream.concat( alpha.entrySet().stream(), bravo.entrySet().stream() )
-                                           .collect( Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, Integer::sum ) );
-        return totals;
+        return dataFiles.stream()
+                        .map( StreamSolution::fileNameToFileContents )
+                        .flatMap( StreamSolution::stringToMapEntryStream)
+                        .collect( Collectors.toMap( Map.Entry::getKey, Map.Entry::getValue, Integer::sum ) );
     }
 
-    // transform from a string to lines contained within a text file
-    static List<String> fileNameToFileContents( String filename ) {
+    /**
+     * This function will read the lines of the specified file, returning a collection of each line read.
+     * @param filename name of the file to read.
+     * @return collection of the file's contents.
+     */
+    private static List<String> fileNameToFileContents(String filename) {
         try(Stream<String> lines = Files.lines( Paths.get( filename ), StandardCharsets.UTF_8 ) ) {
             return lines.collect( Collectors.toList() );
         }
@@ -47,27 +36,39 @@ public class StreamSolution implements Solution {
         }
     }
 
-    static Set<Map.Entry<String,Integer>> toEntrySet(Map<String,Integer> map ) {
-        return map.entrySet();
+    /**
+     * Given a collection of strings with the format of "key = number", this function will create a stream
+     * of map entries.  Any duplicates in the strings are accounted for, with the integer values summed together
+     * and stored under a single key.
+     * @param pairs collection of key-number pairs to transform.
+     * @return stream of map entries.
+     */
+    private static Stream<Map.Entry<String,Integer>> stringToMapEntryStream(List<String> pairs) {
+       return pairs.stream()
+                   .map( StreamSolution::mapLineToPair  )
+                   .collect( Collectors.toMap( Pair::getKey, Pair::getValue, Integer::sum ) )
+                   .entrySet()
+                   .stream();
     }
 
-    // transform list of key-value strings into a map of key-value pairs
-    static Stream<Map.Entry<String,Integer>> stringPairToMap( List<String> pairs ) {
-        Map<String,Integer> bob = pairs.stream().map( StreamSolution::mapLineToPair  )
-                             .collect( Collectors.toMap( Pair::getKey, Pair::getValue, Integer::sum ) );
-        return bob.entrySet().stream();
-    }
-
-    static Pair mapLineToPair( String line ) {
-        String[] parsed = line.split( "=" );
+    /**
+     * Given a string with the format of "key = number", this function will transform into a more manageable object.
+     * @param line text to convert.
+     * @return newly created object.
+     */
+    private static Pair mapLineToPair(final String line) {
+        final String[] parsed = line.split( "=" );
         return new Pair( parsed[0], Integer.parseInt( parsed[1] ) );
     }
 
+    /**
+     * Wanted an object to hold the key-value pairs parsed out from the string in the data files.
+     */
     static class Pair {
         String key;
         Integer value;
 
-        Pair(String key, Integer value) {
+        Pair( String key, Integer value ) {
             this.key = key;
             this.value = value;
         }
