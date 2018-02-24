@@ -1,6 +1,5 @@
 package org.kurron.exercise;
 
-import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
