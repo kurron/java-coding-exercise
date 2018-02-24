@@ -64,7 +64,19 @@ ____
 
 
 
-It doesn't say what version of Java to use and, since I'm not up to speed on Java 9 yet, I'll stick with Java 8.  The Maven requirement should be fun, since I've been doing builds exclusively with Gradle for years.  I'll have to put on my "way back hat" and try to remember how to set up a project.  There is no mention of testing so I'll stick my my tried-and-true friend Spock, since I've come to really appreciate the power and simplicity it brings to automated testing. When I saw that we have to process things in parallel, I immediately thought of Java 8's parallel streams, so we'll give that a try.  I'll resist the urge to dive right in and do what I normally do and write the tests firsts, filling in implementation as needed.
+It doesn't say what version of Java to use and, since I'm not up to speed on Java 9 yet, I'll stick with Java 8.  The Maven requirement should be fun, since I've been doing builds exclusively with Gradle for years.  I'll have to put on my "way back hat" and try to remember how to set up a project.  There is no mention of testing so I'll stick my my tried-and-true friend Spock, since I've come to really appreciate the power and simplicity it brings to automated testing. When I saw that we have to process things in parallel, I immediately thought of Java 8's parallel streams. My second and third thoughts were RxJava and Spring Reactor. I don't want to drag in libraries unless needed so we'll give Streams a try.  I'll resist the urge to dive right in and do what I normally do and write the tests firsts, filling in implementation as needed.
+
+The Stream API is quite complex so I'm very thankful for my Safari subscription, where I was able to dig up a few resources to help me.  As it turns out, the `collect` function can do exactly what we need: merge two maps and account for overlapping entries.  This gives me hope that I won't be wasting my time going down the Streams path.
+
+I've written the tests in this sequence, fleshing out the implementation as needed to make things pass.  If I've done something similar in the past,  I sometimes "cheat" and go "test after" because I already know what will work in terms of API.  In this case, I really don't know how things will shake out, so I'm doing "test first".
+
+1. 2 empty maps
+1. 1 populated map, 1 empty map
+1. 2 populated maps, no duplicate keys
+1. 2 populated maps, some duplicate keys
+1. 2 populated mpas, all duplicate keys
+
+Eventually, I took a peek at the data files and found that duplicate keys exists within the file itself, which blew up my original idea of just using something similar to `Properties.load()`.  Thankfully, Streams also allows us to read files line by line, so we'll get help there as well.
 
 == Prerequisites
 * http://zulu.org/[JDK 8] installed and working

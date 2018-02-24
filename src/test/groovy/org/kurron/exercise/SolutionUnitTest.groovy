@@ -21,6 +21,6 @@ class SolutionUnitTest extends Specification {
 
         where:
         description  |data                           || expected
-        'invalid url'|[new URL( 'file:///' )]  || [:]
+        'invalid url'|['/home/vagrant/GitHub/java-coding-exercise/src/test/resources/file1.txt','/home/vagrant/GitHub/java-coding-exercise/src/test/resources/file2.txt']  || [:]
     }
 }

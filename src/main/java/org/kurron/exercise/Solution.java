@@ -11,8 +11,8 @@ public interface Solution {
 
     /**
      * Reads through a collection of key-value data files of integers, tallying up totals for the individual keys.
-     * @param dataFiles locations of the data files to process.
+     * @param dataFiles names of the data files to process.
      * @return mapping of data variables to their sums.
      */
-    Map<String,Integer> solve( List<URL> dataFiles );
+    Map<String,Integer> solve( List<String> dataFiles );
 }
