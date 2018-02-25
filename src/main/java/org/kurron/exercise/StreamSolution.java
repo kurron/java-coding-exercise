@@ -58,7 +58,7 @@ public class StreamSolution implements Solution {
     }
 
     /**
-     * Given a string with the format of "key = number", this function will transform into a more manageable object.
+     * Given a string with the format of "key = number", this function will transform it into a more manageable object.
      * @param line text to convert.
      * @return newly created object.
      */
