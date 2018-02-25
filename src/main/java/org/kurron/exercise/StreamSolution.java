@@ -71,12 +71,20 @@ public class StreamSolution implements Solution {
      * Wanted an object to hold the key-value pairs parsed out from the string in the data files.
      */
     static class Pair {
-        String key;
-        Integer value;
 
-        Pair( String key, Integer value ) {
-            this.key = key;
-            this.value = value;
+        /**
+         * Key half of the key-value pari.
+         */
+        private final String key;
+
+        /**
+         * Value half of the key-value pari.
+         */
+        private final Integer value;
+
+        Pair( final String aKey, final Integer aVlue ) {
+            key = aKey;
+            value = aVlue;
         }
 
         String getKey() {
