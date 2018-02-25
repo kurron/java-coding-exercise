@@ -82,9 +82,9 @@ public class StreamSolution implements Solution {
          */
         private final Integer value;
 
-        Pair( final String aKey, final Integer aVlue ) {
+        Pair( final String aKey, final Integer aValue ) {
             key = aKey;
-            value = aVlue;
+            value = aValue;
         }
 
         String getKey() {
