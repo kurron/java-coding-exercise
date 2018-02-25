@@ -7,7 +7,7 @@ import spock.lang.Specification
  */
 class StreamSolutionUnitTest extends Specification {
 
-    void 'Test processing test files'() {
+    void 'Test processing provided data files'() {
         given: 'subject under test'
         def sut = new StreamSolution()
 
