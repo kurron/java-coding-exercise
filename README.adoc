@@ -75,7 +75,7 @@ The solution boiled down to this sequence:
 
 TIP: One thing you have to pay attention to when working with streams is that you sometimes get streams of streams, requiring the use of `flatMap` to correct.
 
-Debugging streams is painful due to the fluent nature of the API.  In order to get your stream to compile and process, you need to apply a terminal operator. Oftentimes, I would apply the terminal `forEach` function to dump the contents of the stream.  The use of method references allowed me to set break points as the algorithm progressed but I'm curious how IDEA would have handled a breakpoint in a one-line Lambda?
+Debugging streams can be awkward due to the fluent API which focuses on combining steps to construct a valid pipeline.  In order to get your stream to compile and process, you need to apply a terminal operator. Oftentimes, I would apply the terminal `forEach` function to dump the contents of the stream.  The use of method references allowed me to set break points as the algorithm progressed but I'm curious how IDEA would have handled a breakpoint in a one-line Lambda?
 
 I was a bit surprised to find that Streams doesn't alter the way errors are handled like RxJava does.  I'll admit, reactive programming is a different paradigm but having a place to insert error handling as you compose steps in the pipeline would be useful.  The reader would see both the normal and exceptional processing paths together.
 
